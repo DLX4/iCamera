@@ -1,10 +1,10 @@
 package me.shouheng.icamera.config.creator.impl;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import me.shouheng.icamera.config.creator.CameraManagerCreator;
 import me.shouheng.icamera.manager.CameraManager;
-import me.shouheng.icamera.manager.impl.Camera1Manager;
 import me.shouheng.icamera.manager.impl.Camera2Manager;
 import me.shouheng.icamera.preview.CameraPreview;
 import me.shouheng.icamera.util.CameraHelper;
@@ -26,11 +26,13 @@ public class CameraManagerCreatorImpl implements CameraManagerCreator {
      * @param cameraPreview the {@link CameraPreview}
      * @return CameraManager object.
      */
+    @SuppressLint("NewApi")
     @Override
     public CameraManager create(Context context, CameraPreview cameraPreview) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && CameraHelper.hasCamera2(context)) {
             return new Camera2Manager(cameraPreview);
         }
-        return new Camera1Manager(cameraPreview);
+
+        return new Camera2Manager(cameraPreview);
     }
 }
